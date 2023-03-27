@@ -8,18 +8,17 @@ const Home = () => {
     const [error, setError] = useState(null)
     const [loading, setLoading] = useState(true)
     useEffect(() => {
-        fetch("http://localhost:8000/blogss")
-        .then(res => {
-            if(!res.ok){
-                throw Error ("could not fetch data")
+        fetch("http://localhost:8000/blogss").then(res => {
+            if (!res.ok) {
+                throw Error("could not fetch data")
             }
             return res.json()
-        } )
-        .then(data => {
+        }).then(data => {
             setLoading(false);
             setBlogs(data);
-        })
-        .catch(err => {
+            setError(null)
+        }).catch(err => {
+            setLoading(false);
             setError(err.message);
         })
     }, [])
@@ -30,14 +29,14 @@ const Home = () => {
 
     return (
         <div className="home">
-            {loading && <div>Loading...</div> }
             {
-            error ? <div>Could not display articles</div> :
-             <BlogList blogs={blogs}
+            loading && <div>Loading...</div>
+        }
+            {
+            error ? <div>Could not display articles</div> : <BlogList blogs={blogs}
                 title="Articles"
                 updateBlogs={handleDelete}/>
-        } 
-        </div>
+        } </div>
     );
 }
 
