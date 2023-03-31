@@ -1,7 +1,7 @@
 interface blogs {
     blogs:object[],
     title:string,
-    updateBlogs: (blogId:number) =>void
+    updateBlogs?: (blogId:number) =>void
 }
 
 const BlogList = ({blogs, title, updateBlogs}:blogs) => {
@@ -15,7 +15,7 @@ const BlogList = ({blogs, title, updateBlogs}:blogs) => {
             <section className="blog-preview" key={blog.id}>
             <h2>{blog.title}</h2>
             <p>Written by {blog.author}</p>
-            <button onClick={()=>updateBlogs(blog.id)}>Delete article</button>
+            {/* <button onClick={()=>updateBlogs(blog.id)}>Delete article</button> */}
             </section>))
             }
 

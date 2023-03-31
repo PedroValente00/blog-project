@@ -1,31 +1,14 @@
-import {useEffect, useState} from "react";
+// import {useEffect, useState} from "react";
 import BlogList from "./BlogList";
+import useFetch from "./useFetch";
 
 const Home = () => {
 
+    const {data:blogs, error, loading} = useFetch("http://localhost:8000/blogs")
 
-    const [blogs, setBlogs] = useState([])
-    const [error, setError] = useState(null)
-    const [loading, setLoading] = useState(true)
-    useEffect(() => {
-        fetch("http://localhost:8000/blogss").then(res => {
-            if (!res.ok) {
-                throw Error("could not fetch data")
-            }
-            return res.json()
-        }).then(data => {
-            setLoading(false);
-            setBlogs(data);
-            setError(null)
-        }).catch(err => {
-            setLoading(false);
-            setError(err.message);
-        })
-    }, [])
-
-    const handleDelete = (id : number) => {
-        setBlogs(blogs.filter((blogs : any) => blogs.id !== id))
-    }
+    // const handleDelete = (id : number) => {
+    //     setBlogs(blogs.filter((blogs : any) => blogs.id !== id))
+    // }
 
     return (
         <div className="home">
@@ -33,9 +16,10 @@ const Home = () => {
             loading && <div>Loading...</div>
         }
             {
-            error ? <div>Could not display articles</div> : <BlogList blogs={blogs}
-                title="Articles"
-                updateBlogs={handleDelete}/>
+            (error !== null)  ? <div>{error}</div> : 
+            <BlogList blogs={blogs} title="Articles" 
+            // updateBlogs={ handleDelete }
+            />
         } </div>
     );
 }
