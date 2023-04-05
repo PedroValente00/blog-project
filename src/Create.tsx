@@ -1,4 +1,4 @@
-import React, {FormEvent, useState} from "react";
+import {FormEvent, useState} from "react";
 import { useHistory } from "react-router-dom";
 const Create = () => {
     
@@ -29,10 +29,11 @@ const Create = () => {
             <input type="text" name="title" id="title" required
              onChange={(e)=> setTitle(e.currentTarget.value) }/>
              
-            <label htmlFor="body"></label>
+            <label htmlFor="body">Body</label>
             <textarea name="body" id="body" required minLength={20}
             onChange={(e)=> setBody(e.currentTarget.value)} ></textarea>
 
+            <label htmlFor="author">Author</label>
             <select name="author" id="author" onChange={(e)=>setAuthor(e.currentTarget.value)}>
                 <option value="Paul">Paul</option>
                 <option value="Theresa">Theresa</option>
